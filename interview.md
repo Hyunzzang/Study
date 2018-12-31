@@ -55,8 +55,6 @@
   >  - Old 영역에서 발생한 GC를 Major GC(또는 Old GC) 라고 함 </br>
   > **Permanent Generation** : 클래스 메타데이터를 저장하는 공간, static class, static variable, String Pool, JIT Compiler의 최적화 정보 </br>
 
-<img width="" height="" src=./img/jvm.png></img>
-
 <img width="" height="" src=./img/jvm_heap.png></img>
 
 * Gc 알고리즘 종류?
@@ -87,21 +85,88 @@
   >   - G1 GC의 가장 큰 장점은 성능 </br>
 
 * Jvm 구조?
+  > 
+
+<img width="" height="" src=./img/jvm.png></img>
 
 
 * Jvm 메모리 할당 기술
   > **bump-to-pointer** </br>
   > **TLABs(Thread-Local Allocation Buffers)** </br>
 
-스프링 ioc
-스프링 컨테이너를 설계한다면?
-스프링 빈의 옵션?
-싱글턴 패턴의 장단점
-프로토타입이란?
-바이너리 서치란?
-오버로딩과 오버라이딩
+* Spring Container
+  > 주입을 이용하여 객체를 관리하는 컨테이너
+  > Container : Bean 클래스를 관리하는 주체
+  > Bean : 스프링이 IOC방식으로 관리하는 오브젝트
+  > BeanFactory: 스프링의 IOC를 담당하는 핵심 컨테이너를 가리킨다. 빈을 등록하고, 생성하고, 조회하고, 돌려주고 등 부가적인 빈을 관리하는 기능을 담당
+  > ApplicationContext : 빈팩토리와 유사하지만 향상된 형태의 컨테이너(추가기능으로 국제화 지원 텍스트 메시지 관리, 이미지 파일 로드, 리스너로 등록된 빈에게 이벤트 발생 통보)
+  > 객체를 재사용하는 방식으로, 기본적으로 Singleton 패턴으로 객체가 생성
+  > 종류로 Bean Factory, Application Context가 있는데 Application Context를 가장 많이 사용
 
+* ioc(Inversion of Control)
+  > 객체(Bean)생성 생명주기 관리(컨트롤) </br>
+  > Bean이란 IoC Container에 저장된 객체 </br>
+  > DI나 Bean에 생명주기는 제어를 역전 시켜 Framework에서 제어 </br>
 
+* DI(Dependency Injection)
+  > 객체를 직접 생성하는 게 아니라 외부에서 생성한 후 주입을 시켜주는 방식 </br>
+  > 의존관계가 발생함으로서 결합도를 낮춰, 코드 수정을 피할 수 있다. </br>
+
+* 스프링 컨테이너를 설계한다면?
+  > 
+
+* 스프링 빈의 옵션?
+  > **init-method** : @PostConstruct </br>
+  > **lazy-init** : Bean을 최초로 호출할 때 초기화합니다. 최초 호출 시점에 따라 초기화 시점이 다름 </br>
+  > **destroy-method** : @PreDestroy </br>
+
+* Spring Bean Scope 종류
+  > **singleton scope** : 스프링 IoC 컨테이너 당 하나의 객체 인스턴스에 하나의 빈을 정의한 스코프 </br>
+  > **prototype scope** : 여러 개의 객체 인스턴스에 하나의 빈을 정의한 스코프(의존성 관계의 bean에 주입 될 때 새로운 객체가 생성) </br>
+  > **Request scope​** : 한 HTTP 요청의 생명주기에 하나의 빈을 정의한 스코프 </br>
+  > **Session scope​** : 한 HTTP 세션의 생명주기에 하난의 빈을 정의한 스코프 </br>
+  > **Global session scope​** : 한 글로벌 HTTP 세션의 생명주기에 하난의 빈을 정의한 스코프</br>
+  > **Application scope​** : 싱글톤 bean과 다소 비슷하지만 중요한 두 가지가 다름, ServletContext 마다 싱글톤이지만, ​스프링 ApplicationContext ​마다는 아니고(또는 특정 웹 응용 프로그램에서 여러 가지가있을 수 있다) 실제로 노출되는 것은 ServletContext 의 속성에 따라 볼 수 있음</br>
+
+  * 싱글톤 패턴의 장단점?
+  > 단 하나의 인스턴스를 생성해 사용하는 디자인 패턴 </br>
+  > 고정된 메모리 영역을 얻으면서 한번의 new로 인스턴스를 사용하기 때문에 메모리 낭비를 방지할 수 있음 </br>
+  > 전역 인스턴스이기 때문에 다른 클래스의 인스턴스들이 데이터를 공유하기 쉽음 </br>
+  > 두 번째 이용시부터는 객체 로딩 시간이 현저하게 줄어 성능이 좋아지는 장점 </br>
+  > 너무 많은 일을 하거나 많은 데이터를 공유시킬 경우 다른 클래스의 인스턴스들 간에 결합도가 높아져 "개방-폐쇄 원칙" 을 위배하게 됨 </br>
+  > 멀티쓰레드환경에서 동기화처리를 안하면 인스턴스가 두개가 생성된다든지 하는 경우가 발생할 수 있음 </br>
+
+* 바이너리서치(Binary Search)란?
+  > 오름차순으로 정렬된 리스트에서 특정한 값의 위치를 찾는 알고리즘 </br>
+  > 처음 중간의 값을 임의의 값으로 선택하여, 그 값과 찾고자 하는 값의 크고 작음을 비교하는 방식을 채택하고 있다. 처음 선택한 중앙값이 만약 찾는 값보다 크면 그 값은 새로운 최댓값이 되며, 작으면 그 값은 새로운 최솟값이 된다. 검색 원리상 정렬된 리스트에만 사용할 수 있다는 단점이 있지만, 검색이 반복될 때마다 목표값을 찾을 확률은 두 배가 되므로 속도가 빠르다는 장점 </br>
+
+* 오버로딩과 오버라이딩?
+  >
+
+* Java volatile
+  > volatile keyword는 Java 변수를 Main Memory에 저장하겠다라는 것을 명시하는 것 </br>
+  > 매번 변수의 값을 Read할 때마다 CPU cache에 저장된 값이 아닌 Main Memory에서 읽는 것 </br>
+  > 변수의 값을 Write할 때마다 Main Memory에 까지 작성하는 것 </br>
+  > Multi Thread 환경에서 하나의 Thread만 read & write하고 나머지 Thread가 read하는 상황에서 가장 최신의 값을 보장 </br>
+  > 하나의 Thread가 아닌 여러 Thread가 write하는 상황에서는 적합하지 않음 </br>
+
+* 자바 1.8 의 특징
+  > **Lambda expressions** : </br>
+  >  - 람다 표현식은 Anonymous Function </br>
+  >  - 람다를 이용하여 코드를 간결하게 할 수 있음 </br>
+  > **Method Reference** : </br>
+  >  - 특정 람다 표현식을 축약한 것으로 볼 수 있음 </br>
+  >  - 메서드 정의를 활용하여 람다처럼 사용 가능 </br>
+  > **Stream** : </br>
+  >  - 다양한 데이터 소스를 표준화된 방법으로 다루기 위한 라이브러리 </br>
+  >  - 스트림은 데이터 소스를 추상화하고, 데이터를 다루는데 자주 사용되는 메서드들을 정의 </br>
+  >  - 배열이나 컬렉션 뿐만 아니라 파일에 저장된 데이터도 모두 같은 방식으로 다룰 수 있음 </br>
+  > **Parallel Stream** : </br>
+  > **Default Method** : </br>
+  > **Optional** : </br>
+  > **CompletaleFuture** : </br>
+  > **New date / time APIs** </br>
+  >  - Joda-Time의 많은 기능을 java.time 패키지로 추가</br>
 
 -------------------------------------------------------------------------------
 
@@ -233,7 +298,6 @@ serializable
  
 
 
-카카오
 -------------------------------------------------------------------------------
 
 1. 프로젝트 설명
