@@ -195,6 +195,12 @@ stringbuilder stringbuffer string 차이
 dfs bfs, 스택, 큐
 
 olap oltp
+* OLTP (Online Transaction Processing) - 온라인 트랜잭션 처리
+* OLAP (OnLine Analytical Processing) - 온라인 분석 처리
+
+OLAP 와 OLTP 의 차이점 
+OLTP :  현재 업무의 효율적인 처리에만 관심이 있음
+OLAP : 의사결정에 도움되는 데이터 분석에 관심이 있음
 
 oom 경험, 해결방법
 
