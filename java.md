@@ -24,6 +24,27 @@
 
 #### Execution Engine
 
+### Java Reference
+1. WeakReference
+ - GC가 언제든지 쓰레기 취급 할 수 있는 Reference : 따라서 메모리 처리에 크게 신경 쓸 필요가 없다.
+ - new WeakReference(new Object()); 형태
+
+2. SoftReference
+ - GC가 메모리가 부족(OutOfMemory 상태 가기 직전) 일 경우, 쓰레기 취급 해버리는 Reference
+ - new SoftReference(new Object()); 형태
+
+3. StringReference
+ - GC가 처리 하지 않는 Reference : null 처리로 GC에 알려주는게 메모리 누수에 좋다.
+ - new Object(); 형태
+
+4. 기타
+ - WeakReference에 StrongReference를 지정할 경우
+   : WeakReference weakRef = new WeakReference(new Object()); 
+     이렇게 생성 하고 나서 Object obj = weakRef.get(); 을 할 경우, obj는 StrongReference로 참조 된다.
+     그래서 obj가 null 이 될때까지 GC가 쓰레기 취급을 하지 않게 된다.
+     하지만, weakRef.get()하지 않을 경우에는 StrongReference가 아닌 WeakReference로 취급 되어
+     GC가 쓰레기 취급을 하게 된다.
+
 --------------------------------------------------------------------
 
 * VO : 사용 되는 값이 객체로 표현 되며, 값 변경이 없는 경우를 말한다.
