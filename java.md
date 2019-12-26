@@ -101,6 +101,16 @@
 * IoC가 낮은 결합도와 관련된 것이라면 AOP 는 높은 응집도와 관련
 * 기능을 핵심 비지니스 로직과 공통 모듈로 구분하고, 핵심 로직에 영향을 미치지 않고 사이사이에 공통 모듈을 효과적으로 잘 끼워넣도록 하는 개발 방법
 
+### spring 대표 어노테이션의 차이
+  * @Component
+    - sping에서 관리되는 객체임을 표시하기 위해 사용하는 가장 기본적인 annotation, scan-auto-detection과 dependency injection을 사용하기 위해서 사용되는 가장 기본 어노테이션, bean 인스턴스 생성
+  * @Controller
+    -  Web MVC에 사용되는 어노테이션, @RequestMapping 어노테이션을 해당 어노테이션 밑에서만 사용할 수 있음
+  * @Repository
+    - data repository를 나타내는 어노테이션, @Repository는 플랫품 특정 exception을 잡아 sping의 unchecked exception으로 뱉어냄
+  * @Service
+    - 비즈니스 로직이나 respository layer 호출하는 역할에 사용, @Component외 추가된 기능이 없음
+
 ### 자바빈즈(JavaBeans): 자바로 작성된 소프트웨어 컴포넌트
 
 ### Spring Web 비동기
