@@ -33,7 +33,7 @@
  - GC가 메모리가 부족(OutOfMemory 상태 가기 직전) 일 경우, 쓰레기 취급 해버리는 Reference
  - new SoftReference(new Object()); 형태
 
-3. StringReference
+3. StrongReference
  - GC가 처리 하지 않는 Reference : null 처리로 GC에 알려주는게 메모리 누수에 좋다.
  - new Object(); 형태
 
